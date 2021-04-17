@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateEventsTable extends Migration
@@ -26,8 +27,8 @@ class CreateEventsTable extends Migration
             $table->string('event_country', 45);
             $table->string('event_address', 45);
             $table->string('event_postcode', 45);
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('event_banner', 45)->nullable();
             $table->integer('event_time_zone')->nullable();
             $table->string('currency', 45);
