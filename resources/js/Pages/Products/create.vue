@@ -31,7 +31,7 @@ export default {
                 base_price:"",
                 cost_price:"",
                 stock:"",
-                event_id:window.location.pathname.split("/")[2]
+                bar_id:window.location.pathname.split("/")[2]
             }
         }
     },
@@ -47,7 +47,7 @@ export default {
                 return; 
             }
             
-            axios.post('../product/store',
+            axios.post('/product/store',
             {
                 product:this.product
             }).then(Response => 

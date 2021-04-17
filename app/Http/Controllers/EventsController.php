@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Product;
+use App\Models\Bar;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
@@ -46,12 +47,13 @@ class EventsController extends Controller
     public function product_list($id)
     {
         $event = Event::find($id);
-        $products = DB::table('products')->join('event_products','products.product_id','=','event_products.product_id')
-                                        ->where('event_id',$event->event_id)->get();
+        $products = DB::table('products')->join('bar_products','products.product_id','=','bar_products.product_id')
+                                        ->join('bars','bars.bar_id','=','bar_products.bar_id')
+                                        ->where('event_id',$id)->get();
 
         if($event)
         {
-            return Inertia::render('Products/index', ['event' => $event,'products'=>$products]);
+            return Inertia::render('Products/index', ['event'=>$event,'products'=>$products]);
         }
 
         return '404 NOT FOUND!';
@@ -67,8 +69,9 @@ class EventsController extends Controller
     public function bar_list($id)
     {
         $event = Event::find($id);
+        $bars = DB::table('Bars')->where('event_id',$event->event_id)->get();
 
-        return Inertia::render('Bars/index',['event' => $event]);
+        return Inertia::render('Bars/index',['event' => $event,'bars'=>$bars]);
     }
 
     public function order_list($id)

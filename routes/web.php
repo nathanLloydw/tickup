@@ -3,6 +3,7 @@
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\BarsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,18 +37,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function ()
 
 Route::middleware(['auth:sanctum', 'verified'])->get('users',[UsersController::class,'index'])->name('users');
 
-Route::middleware(['auth:sanctum', 'verified'])->prefix('/user')->group(function ()
-{
-    Route::post('/store', [UsersController::class,'store']);
-    Route::put('/{id}', [UsersController::class,'update']);
-    Route::delete('/{id}', [UsersController::class,'destroy']);
-});
-
 Route::middleware(['auth:sanctum', 'verified'])->get('products',[ProductsController::class,'index'])->name('products');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('events',[EventsController::class,'index'])->name('events');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('event/{id}',[EventsController::class,'event'])->name('event');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('bar/{id}/products',[BarsController::class,'product_list'])->name('bars/products');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('event/{id}/products',[EventsController::class,'product_list'])->name('event/products');
 
@@ -59,11 +55,20 @@ Route::middleware(['auth:sanctum', 'verified'])->get('event/{id}/orders',[Events
 
 Route::middleware(['auth:sanctum', 'verified'])->get('events/create', [EventsController::class,'create'])->name('events/create');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('users/create', [UsersController::class,'create'])->name('users/create');
+
 Route::middleware(['auth:sanctum', 'verified'])->prefix('/event')->group(function ()
 {
     Route::post('/store', [EventsController::class,'store']);
     Route::put('/{id}', [EventsController::class,'update']);
     Route::delete('/{id}', [EventsController::class,'destroy']);
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->prefix('/user')->group(function ()
+{
+    Route::post('/store', [UsersController::class,'store']);
+    Route::put('/{id}', [UsersController::class,'update']);
+    Route::delete('/{id}', [UsersController::class,'destroy']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix('/product')->group(function ()
@@ -72,3 +77,11 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('/product')->group(funct
     Route::put('/{id}', [ProductsController::class,'update']);
     Route::delete('/{id}', [ProductsController::class,'destroy']);
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->prefix('/bar')->group(function ()
+{
+    Route::post('/store', [BarsController::class,'store']);
+    Route::put('/{id}', [BarsController::class,'update']);
+    Route::delete('/{id}', [BarsController::class,'destroy']);
+});
+

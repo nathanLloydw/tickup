@@ -120,7 +120,7 @@
 
                                 <div class="ml-12">
                                     <div class="mt-2 text-sm text-gray-500">
-                                        Order Screen
+                                        Orders
                                     </div>
 
                                     <a :href="route('event/orders',event.event_id)">

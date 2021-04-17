@@ -7,7 +7,7 @@
 
             <a
             :href="route('events/create')"
-            class="float-right -mt-2 inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-green-500 uppercase transition bg-transparent border-2 border-green-500 rounded ripple hover:bg-green-100 focus:outline-none"
+            class="float-right -mt-2 inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-gray-500 uppercase transition bg-transparent border-2 border-gray-500 rounded ripple hover:bg-gray-100 focus:outline-none"
             >
             New Event
             </a>

@@ -1,21 +1,43 @@
-composer create-project laravel/laravel jetstream
+# quick set up
+
+# 1
+    composer install
+# 2
+    npm install
+# 3
+    npm run prod
+# 4 (IF DB CREDENTIALS ARE POPULATED IN THE DOT ENV)
+    php artisan migrate:fresh --seed 
+# 5
+    php artisan serve
+
+# other commands
 
 composer require laravel/jetstream
 
 php artisan jetstream:install inertia
 
-npm install
+php artisan storage:link
 
-npm run dev
-
+# runs database migrations
 php artisan migrate
 
-php artisan serve
+# generate migrations from current db
+php artisan migrate:generate -ignore="personal_access_tokens" 
 
-=======================================================================================================================================================================
-
+# create controller
 php artisan make:controller EventsController --resource
 
-php artisan make:controller UsersController --resource
-
+# create model
 php artisan make:model Event
+
+# create seeder
+php artisan make:seeder UserSeeder
+
+php artisan optimize:clear
+
+# run seeders
+php artisan db:seed
+
+# run migration and seeders together
+php artisan migrate:fresh --seed 

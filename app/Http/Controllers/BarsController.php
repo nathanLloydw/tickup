@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\Bar_product;
+use App\Models\Bar;
+use App\Models\Event;
+use App\Models\Event_product;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
-class ProductsController extends Controller
+class BarsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +19,23 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return Inertia::render('Products/index', ['products' => $products]);
+        $bars = Bar::all();
+        return Inertia::render('Bars/index', ['bars' => $bars]);
+    }
+
+    public function product_list($id)
+    {
+        $bar = Bar::find($id);
+        $event = Event::find($bar->event_id);
+        $products = DB::table('products')->join('bar_products','products.product_id','=','bar_products.product_id')
+                                        ->where('bar_id',$bar->bar_id)->get();
+
+        if($bar)
+        {
+            return Inertia::render('Products/index', ['event'=>$event,'bar' => $bar,'products'=>$products]);
+        }
+
+        return '404 NOT FOUND!';
     }
 
     /**
@@ -39,24 +56,17 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $newProduct = new Product;
-        $newProduct->product_name = $request->product['product_name'];
-        $newProduct->base_price = $request->product['base_price'];
-        $newProduct->cost_price = $request->product['cost_price'];
-        $newProduct->stock = $request->product['stock'];
+        $newBar = new Bar;
+        $newBar->event_id = $request->bar['event_id'];
+        $newBar->bar_name = $request->bar['bar_name'];
+        $newBar->food = $request->bar['food'];
+        $newBar->drink = $request->bar['drink'];
+        $newBar->location = $request->bar['location'];
+        $newBar->size = $request->bar['size'];
 
-        $newProduct->save();
+        $newBar->save();
 
-        if($request->product['bar_id'])
-        {
-            $bar_product = new Bar_product;
-            $bar_product->bar_id =  $request->product['bar_id'];
-            $bar_product->product_id = $newProduct->product_id;
-
-            $bar_product->save();
-        }
-
-        return $newProduct;
+        return $newBar;
     }
 
     /**
@@ -99,11 +109,11 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $bar = Bar::find($id);
 
-        if($product)
+        if($bar)
         {
-            $product->delete();
+            $bar->delete();
             return "Item Deleted";
         }
 

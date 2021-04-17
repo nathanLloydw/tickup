@@ -99,9 +99,12 @@ class UsersController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if ($request->has('id')) {
-            User::find($request->input('id'))->delete();
-            return redirect()->back();
+        $user = User::find($id);
+
+        if($user)
+        {
+            $user->delete();
+            return "Item Deleted";
         }
     }
 }

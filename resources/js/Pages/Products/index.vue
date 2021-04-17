@@ -3,7 +3,7 @@
         <template #header>
             <div class="flex items-center">
 
-                <eventHeader :event="event">
+                <eventHeader :event="event" :bar="bar">
                 </eventHeader>
 
                 <div class="text-xl text-gray-800 leading-tight ml-auto">
@@ -38,7 +38,7 @@
                             </thead>
 
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <create></create>
+                                <create v-if="$page.props.bar"></create>
                                 <tr v-for="(product,index) in products" :key="index">
                                     
                                     <productRow :product="product">
@@ -72,7 +72,7 @@ export default {
             productRow,
             eventHeader
     },
-    props: ['event','products'],
+    props: ['event','bar','products'],
     methods:
     {
         

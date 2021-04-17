@@ -5,6 +5,13 @@
                 Users
             </h2>
 
+            <a
+            :href="route('users/create')"
+            class="float-right -mt-2 inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-gray-500 uppercase transition bg-transparent border-2 border-gray-500 rounded ripple hover:bg-gray-100 focus:outline-none"
+            >
+            New User
+            </a>
+
         </template>
 
         <div class="flex flex-col w-10/12 m-auto mt-6">
@@ -36,7 +43,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
-                                                <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                                                <img class="h-10 w-10 rounded-full" :src="user.profile_photo_url" alt="">
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">
@@ -61,8 +68,8 @@
                                         Admin
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                        <a href="#" class="ml-4 text-red-600 hover:text-red-900">Delete</a>
+                                        <a class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                        <a @click="delete_user(user.id)" class="ml-4 text-red-600 hover:text-red-900">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -76,15 +83,27 @@
 </template>
 
 <script>
-import JetAuthenticationCardLogo from '@/Components/AuthenticationCardLogo'
 import AppLayout from '@/Layouts/AppLayout'
 
 export default {
-    props: ['policy','data'],
+    props: ['data'],
 
     components: {
-        JetAuthenticationCardLogo,
         AppLayout
     },
+    methods: {
+        delete_user(user_id)
+        {
+            console.log('deleting '+user_id);
+            axios.delete('../user/'+user_id).then(Response =>
+            {
+                console.log(Response);
+                window.location = window.location;
+            }).catch(errors =>
+            {
+                console.log(errors);
+            });
+        }
+    }
 }
 </script>

@@ -7,7 +7,10 @@
             <div class="text-m font-medium text-gray-900">
                 {{ event.event_name }}
             </div>
-            <div class="text-sm text-gray-500">
+            <div class="text-sm text-gray-500" v-if="$page.props.bar">
+                {{ bar.bar_name }}
+            </div>
+            <div class="text-sm text-gray-500" v-else>
                 {{ event.event_description }}
             </div>
         </div>
@@ -17,7 +20,7 @@
 <script>
 
 export default {
-    props: ['event'],
+    props: ['event','bar'],
     methods:
     {
         load_event()
