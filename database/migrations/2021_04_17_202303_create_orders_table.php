@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->string('order_status', 45);
             $table->integer('customer_id');
             $table->string('payment_method', 45);
+            $table->timestamps();
         });
     }
 

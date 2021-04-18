@@ -23,6 +23,7 @@ class CreateTicketsTable extends Migration
             $table->string('ticket_status', 45)->nullable();
             $table->integer('min_per_order')->nullable();
             $table->integer('max_per_order')->nullable();
+            $table->timestamps();
         });
     }
 

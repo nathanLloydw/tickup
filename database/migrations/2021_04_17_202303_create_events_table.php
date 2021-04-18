@@ -26,12 +26,11 @@ class CreateEventsTable extends Migration
             $table->string('event_country', 45);
             $table->string('event_address', 45);
             $table->string('event_postcode', 45);
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
             $table->string('event_banner', 45)->nullable();
             $table->integer('event_time_zone')->nullable();
             $table->string('currency', 45);
             $table->integer('transaction_fee');
+            $table->timestamps();
         });
     }
 

@@ -18,6 +18,7 @@ class CreateOrderLinesTable extends Migration
             $table->integer('order_id');
             $table->integer('ticket_id');
             $table->integer('quantity');
+            $table->timestamps();
         });
     }
 
