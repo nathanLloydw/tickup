@@ -1,17 +1,28 @@
-# quick set up
+# tickup
 
-# 1
+## synopsis
+
+## stack
+* PHP
+* Laravel
+* Vue Js
+* Tailwind CSS
+* laravel jetstream interia 
+
+## quick set up
+
+## 1
     composer install
-# 2
+## 2
     npm install
-# 3
+## 3
     npm run prod
-# 4 (IF DB CREDENTIALS ARE POPULATED IN THE DOT ENV)
+## 4 (IF DB CREDENTIALS ARE POPULATED IN THE DOT ENV)
     php artisan migrate:fresh --seed 
-# 5
+## 5
     php artisan serve
 
-# other commands
+## other commands
 
 composer require laravel/jetstream
 
@@ -19,25 +30,25 @@ php artisan jetstream:install inertia
 
 php artisan storage:link
 
-# runs database migrations
+## runs database migrations
 php artisan migrate
 
-# generate migrations from current db
+## generate migrations from current db
 php artisan migrate:generate -ignore="personal_access_tokens" 
 
-# create controller
+## create controller
 php artisan make:controller EventsController --resource
 
-# create model
+## create model
 php artisan make:model Event
 
-# create seeder
+## create seeder
 php artisan make:seeder UserSeeder
 
 php artisan optimize:clear
 
-# run seeders
+## run seeders
 php artisan db:seed
 
-# run migration and seeders together
+## run migration and seeders together
 php artisan migrate:fresh --seed 
