@@ -2,6 +2,8 @@
 
 ## synopsis
 
+A system to allow a user to create events, sell tickets and manage the guestlist through scanning QR codes on entry and departure. 
+
 ## stack
 * PHP
 * Laravel
